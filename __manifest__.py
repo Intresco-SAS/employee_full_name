@@ -19,7 +19,7 @@
 #
 #################################################################################
 {
-    'name': "Employee First Name, Middle Name & Last Name",
+    'name': "Employee First, Middle & Last Name",
     'summary': """
        Employee,Partner and User Name in Full Format""",
     'description': """
@@ -36,6 +36,7 @@
     # always loaded
     'data': [
         'views/views.xml',
+        'data/l10n_cities_co_data.xml',
     ],
     # only loaded in demonstration mode
     'demo': [],

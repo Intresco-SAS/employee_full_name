@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="hr_employee_full_name_inherit" model="ir.ui.view">
+            <field name="name">EmployeeFullNameFormat</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='category_ids']" position="replace">
+                    <group>
+                        <group>
+                            <field name="emp_fname" placeholder="Primer nombre..."/>
+                            <field name="emp_mname" placeholder="Segundo nombre..."/>
+                        </group>
+                        <group>
+                                <field name="emp_lname" string="Primer apellido" placeholder="Primer apellido..."/>
+                                <field name="emp_slname" placeholder="Segundo apellido..."/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='job_title']" position="replace">
+                        <field name="job_id" placeholder="Selecciona el cargo..."/>
+                </xpath>
+                <xpath expr="//field[@name='coach_id']" position="after">
+                        <field name="cost_center"/>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="before">
+                    <field name="sede" placeholder="Selecciona la sede..."/>
+                </xpath>
+                <xpath expr="//field[@name='work_email']" position="before">
+                    <field name="address_id" placeholder="Selecciona la sede..."/>
+                    <field name="work_location"/>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position="replace">
+                    <field name="work_address"/>
+                </xpath>
+                
+               <xpath expr="//page[@name='personal_information']" position="replace">
+                    <page string="Información personal"> 
+                        <group>
+                            <group string="Información de contacto">
+                                <field name="address_home_id" context="{ 
+                                                                        'show_address': 1,  
+                                                                        'default_type': 'private',  
+                                                                        'form_view_ref': 'base.res_partner_view_form_private'}" 
+                                                                        options="{&quot;always_reload&quot;: True, &quot;highlight_first_line&quot;: True}" invisible="1"/>
+                                <field name="address_home" string="Dirección de residencia"/>
+                                <field name="neighborhood"/>
+                                <field name="city_re_id"/>
+                                <field name="estrato" string="Estrato"/>
+                                <field name="tipo_vivienda" string="Tipo de vivienda"/>
+                                <field name="private_email" />
+                                <field name="phone" string="Telefono fijo"/>
+                                <field name="movil" string="Celular"/>
+                                <field name="bank_account_id" context="{'default_partner_id': address_home}" invisible="1"/>
+                                <!--label for="km_home_work"/>
+                                <div class="o_row" name="div_km_home_work">
+                                    <field name="km_home_work" groups="hr.group_hr_user"/>
+                                    <span>Km</span>
+                                </div-->
+
+                            </group>
+                            <group string="Ciudadanía">
+                                <field name="country_nacionalidad_id" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                <field name="doctype" string="Tipo de documento"/>
+                                <field name="identification_id" groups="hr.group_hr_user"/>
+                                <field name="sex" string="Sexo"/>
+                                <field name="expedition_date" string="Fecha de expedición"/>
+                                <field name="country_id"  options="{'no_quick_create': True, 'no_create_edit' : True}" invisible="1"/>
+                                <field name="state_id" options="{'no_quick_create': True, 'no_create_edit' : True}" attrs="{'invisible':[('hide', '=', True)]}"/>
+                                <field name="city_id" attrs="{'invisible':[('hide', '=', True)]}"/>
+                            </group>
+                            <group string="Lugar y fecha de Nacimiento">
+                                <field name="birthday" />
+                                
+                                <field name="country_id"/>
+                                <field name="state_id"/>
+                                <field name="city_id"/>
+                                <field name="place_of_birth" invisible="1"/>
+                                <field name="country_of_birth" invisible="1"/>
+                            </group>
+                            <group string="Permiso de trabajo" name="work_permit">
+                                <field name="visa_no" invisible="1"/>
+                                <field name="validity" string="Valido hasta"  attrs="{'invisible':[('doctype','!=','41')]}"/>
+                                <field name="permit_no" invisible="1"/>
+                                <field name="visa_expire" invisible="1"/>
+                            </group>
+                            <!--group string="Dependant">
+                                <field name="children"/>
+                            </group-->
+                            <group string="Emergencia">
+                                <field name="emergency_contact"/>
+                                <field name="emergency_phone" class="o_force_ltr"/>
+                                <field name="grupo_sangre1" string="Grupo de sangre"/>
+                            </group>
+                            <group string="Información adicional">
+                                <field name="premios"/>
+                                <field name="pasatiempos"/>
+                                <field name="voluntariados_asociaciones"/>
+                                <field name="mascotas"/>
+                                <field name="tipo_alimen" string="Tipo de alimentación"/>
+                                <field name="pasatiempo1" string="Pasa tiempo"/>
+                            </group>
+                            <group name="marital_status" string="Estado civil">
+                                <field name="marital1"/>
+                                <field name="spouse_complete_name" string="Nombre del cónyugue"
+                                attrs="{'invisible': [('marital1', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
+                                <field name="spouse_birthdate" string="Fecha de nacimiento del cónyugue"
+                                attrs="{'invisible': [('marital1', 'not in', ['married', 'cohabitant'])]}" groups="hr.group_hr_user"/>
+                            </group>
+                            <group name="vulnerable_population" string="Población vulnerable">
+                                <field name="Tipo_pobl_vul1" string="Tipo de población vulnerable"/>
+                            </group>   
+                            <group string="Education" invisible="1">
+                                <field name="certificate"/>
+                                <field name="study_field"/>
+                                <field name="study_school"/>
+                                <field name="hide" invisible="1"/>
+                                <field name="country_id" options="{'no_quick_create': True, 'no_create_edit' : True}" invisible="1"/>
+                                <field name="state_id" options="{'no_quick_create': True, 'no_create_edit' : True}" attrs="{'invisible':[('hide', '=', True)]}" invisible="1"/>
+                                <field name="city_id"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='private_email']" position="replace">
+                    <field name="pers_email"/>
+                </xpath>
+                <xpath expr="//page[@name='hr_settings']" position="before">
+                    <page name="inf_fa" string="Informacion familiar"> 
+                        <group string="Información familiar">
+                            <group >
+                                <field name="name_f"/>
+                                <field name="doctype1" string="Tipo de documento" />
+                                <field name="sex1" string="Sexo" />
+                                <field name="eps"/>
+                                <field name="ocu"/>
+                                <field name="dep_eco" string="Depende económicamente del colaborador"/>
+                            </group>
+                            <group string=" ">
+                                <field name="r_paren" string="Relación familiar o parentesco" />
+                                <field name="num_iden"/>
+                                <field name="birthday1" />
+                                <field name="n_edu" string="Nivel de educacion"/>
+                                <field name="vconcol" string="Vive con el colaborador"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="otro_fami_dep"/>
+                        </group>
+                        <group>
+                            <group >
+                                <field name="name_f_1" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="doctype1_1" string="Tipo de documento" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="sex1_1" string="Sexo" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="eps_1" string="EPS" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="ocu_1" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="dep_eco_1" string="Depende económicamente del colaborador" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                            </group>
+                            <group string=" ">
+                                <field name="r_paren_1" string="Relación familiar o parentesco" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="num_iden_1" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="birthday1_1" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="n_edu_1" string="Nivel de educacion" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                                <field name="vconcol_1" string="Vive con el colaborador" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="otro_fami_dep_1" attrs="{'invisible': [('otro_fami_dep','=', False)]}"/>
+                        </group>
+                        <group>
+                            <group >
+                                <field name="name_f_2" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="doctype1_2" string="Tipo de documento" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="sex1_2" string="Sexo" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="eps_2" string="EPS" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="ocu_2" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="dep_eco_2" string="Depende económicamente del colaborador" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                            </group>
+                            <group string=" ">
+                                <field name="r_paren_2" string="Relación familiar o parentesco" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="num_iden_2" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="birthday1_2" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="n_edu_2" string="Nivel de educacion" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                                <field name="vconcol_2" string="Vive con el colaborador" attrs="{'invisible': [('otro_fami_dep_1','=', False)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
