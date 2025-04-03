@@ -30,7 +30,7 @@
                 </xpath>
                 <xpath expr="//field[@name='work_email']" position="before">
                     <field name="address_id" placeholder="Selecciona la sede..."/>
-                    <field name="work_location"/>
+                    <!-- <field name="work_location"/> -->
                 </xpath>
                 <xpath expr="//field[@name='address_id']" position="replace">
                     <field name="work_address"/>
