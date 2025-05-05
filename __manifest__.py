@@ -36,7 +36,7 @@
     # always loaded
     'data': [
         'views/views.xml',
-        'data/l10n_cities_co_data.xml',
+        #'data/l10n_cities_co_data.xml',
     ],
     # only loaded in demonstration mode
     'demo': [],
